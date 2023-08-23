@@ -18,5 +18,3 @@
         - titulo
 
 - Barra de Pesquisa
-
-- Finalizar
