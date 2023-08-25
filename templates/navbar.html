@@ -1,0 +1,36 @@
+{% load static %}
+
+<nav class="w-full flex justify-between items-center py-3 px-4 fixed z-50">
+	<div class="w-6/12">
+		<a href="#">
+			<img class="w-5/12" src="{% static 'images/hashflix.png' '%}">
+		</a>
+	</div>
+
+	<div class="w-6/12 flex flex-nowrap justify-end">
+
+		<div class="mr-2">
+			 <form>
+                      <input class="py-1 px-2 rounded-md text-black" type="text" placeholder="Pesquisar...">
+			 </form>
+		</div>
+
+		<div class="mr-2">
+			<a>
+				<button class='bg-red-600 py-1 px-3 text-white md:text-lg rounded-md'>
+	                Entrar
+	            </button>
+			</a>
+		</div>
+
+		<div class="mr-2">
+            <a>
+				<button class='bg-red-600 py-1 px-3 text-white md:text-lg rounded-md'>
+	                Editar Perfil
+	            </button>
+            </a>
+		</div>
+
+	</div>
+
+</nav>
