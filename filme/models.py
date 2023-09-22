@@ -1,3 +1,4 @@
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils import timezone
 
@@ -28,3 +29,7 @@ class Episodio(models.Model):
 
 	def __str__(self):
 		return self.filme.titulo + " | " + self.titulo
+
+
+class Usuario(AbstractUser):
+	filmes_vistos = models.ManyToManyField('Filme')
