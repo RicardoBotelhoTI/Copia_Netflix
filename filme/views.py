@@ -1,37 +1,39 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Filme
 from django.views.generic import TemplateView, ListView, DetailView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
-
-"""def homepage(request):
-	return render(request, 'homepage.html')"""
 
 class HomePage(TemplateView):
 	template_name = 'homepage.html'
 
+	def get(self, request, *args, **kwargs):
+		if request.user.is_authenticated:  # usuario esta autenticado:
+			# redireciona para a homefilmes
+			return redirect('filme:homefilmes')
+		else:
+			return super().get(request, *args, **kwargs)  # redireciona para a homepage
 
 
-"""def homefilmes(request):
-	lista_filmes = Filme.objects.all()
-	return render(request, 'homefilmes.html', {'lista_filmes': lista_filmes})"""
-
-class HomeFilmes(ListView):
+class HomeFilmes(LoginRequiredMixin, ListView):
 	template_name = 'homefilmes.html'
 	model = Filme
 	# object_list - Lista de itens do modelo
 
 
-class DetalhesFilme(DetailView):
+class DetalhesFilme(LoginRequiredMixin, DetailView):
 	template_name = 'detalhesfilme.html'
 	model = Filme
 	# object - 1 item do nosso modelo
 
 
 	def get(self, request, *args, **kwargs):
-		# Descobrir qual o filme ele está acessando
+		# contabilizar visualização
 		filme = self.get_object()
 		filme.visualizacoes += 1
 		filme.save()
+		usuario = request.user
+		usuario.filmes_vistos.add(filme)
 		return super().get(request, *args, **kwargs) # Redireciona para a URL final
 
 
@@ -44,7 +46,7 @@ class DetalhesFilme(DetailView):
 		return context
 
 
-class PesquisaFilme(ListView):
+class PesquisaFilme(LoginRequiredMixin, ListView):
 	template_name = 'pesquisa.html'
 	model = Filme
 
@@ -56,3 +58,7 @@ class PesquisaFilme(ListView):
 			return object_list
 		else:
 			return None
+
+
+class EditarPerfil(LoginRequiredMixin, TemplateView):
+	template_name = 'editarperfil.html'
