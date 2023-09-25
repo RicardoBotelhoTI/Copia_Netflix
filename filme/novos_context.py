@@ -7,7 +7,7 @@ def lista_filmes_recentes(request):
 		filme_destaque = lista_filmes[0]
 	else:
 		lista_filmes = None
-	return {"lista_filmes_recentes": lista_filmes} # , 'filme_destaque': filme_destaque
+	return {"lista_filmes_recentes": lista_filmes, 'filme_destaque': filme_destaque}
 
 
 def lista_filmes_amalta(request):
