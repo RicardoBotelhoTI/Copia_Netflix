@@ -11,5 +11,6 @@ urlpatterns = [
     path('pesquisa/', v.PesquisaFilme.as_view(), name='pesquisafilme'),
     path('login/', auth_view.LoginView.as_view(template_name='login.html'), name='login'),
     path('logout/', auth_view.LogoutView.as_view(template_name='logout.html'), name='logout'),
-    path('editarperfil/', v.EditarPerfil.as_view(), name='editarperfil')
+    path('editarperfil/', v.EditarPerfil.as_view(), name='editarperfil'),
+    path('criarconta/', v.CriarConta.as_view(), name='criarconta'),
 ]

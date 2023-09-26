@@ -1,7 +1,8 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, reverse
 from .models import Filme
-from django.views.generic import TemplateView, ListView, DetailView
+from django.views.generic import TemplateView, ListView, DetailView, FormView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from .forms import CriarContaForma
 
 
 class HomePage(TemplateView):
@@ -62,3 +63,15 @@ class PesquisaFilme(LoginRequiredMixin, ListView):
 
 class EditarPerfil(LoginRequiredMixin, TemplateView):
 	template_name = 'editarperfil.html'
+
+
+class CriarConta(FormView):
+	template_name = 'criarconta.html'
+	form_class = CriarContaForma
+
+	def form_valid(self, form): # Validação para salvar no BD
+		form.save()
+		return super().form_valid(form)
+
+	def get_success_url(self):
+		return reverse('filme:login') # função pede como resposta um link (sempre usar reverse ao inves de redirect)
