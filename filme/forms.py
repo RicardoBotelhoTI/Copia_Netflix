@@ -3,6 +3,10 @@ from .models import Usuario
 from django import forms
 
 
+class FormHomePage(forms.Form):
+	email = forms.EmailField(label=False)
+
+
 class CriarContaForma(UserCreationForm):
 	email = forms.EmailField() # Email obrigatorio
 
